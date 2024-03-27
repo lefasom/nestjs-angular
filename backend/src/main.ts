@@ -16,6 +16,7 @@ async function bootstrap() {
     // ...
   });
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Documentation Example')
     .setDescription('Aprendiendo a documentar')
     .setVersion('1.0')

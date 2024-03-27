@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ItemsModule } from './items/items.module';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -11,7 +13,9 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true, // Indica que este módulo es global, esto permite el uso de variables de entorno
     }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
-    ItemsModule
+    ItemsModule,
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService]

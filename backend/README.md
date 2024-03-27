@@ -29,6 +29,7 @@
 - [] npm install --save @nestjs/jwt passport-jwt
 - [] npm install --save-dev @types/passport-jwt
 - [] npm install --save bcrypt
+- [] npm i --save-dev @types/bcrypt
 # genero los resource de un componente 
 - [] nest g resource items
 # instalaccion de swagger
