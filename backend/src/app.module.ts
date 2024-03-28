@@ -12,7 +12,7 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot({
       isGlobal: true, // Indica que este módulo es global, esto permite el uso de variables de entorno
     }),
-    MongooseModule.forRoot(process.env.DATABASE_URL),
+    MongooseModule.forRoot(process.env.MONGO_DB),
     ItemsModule,
     AuthModule,
     UserModule

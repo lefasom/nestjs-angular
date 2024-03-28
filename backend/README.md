@@ -21,7 +21,7 @@
 - [x] npx prisma migrate dev --name init
 
 # configuro mongoose (variable de entorno) 
-- [x] MONGO_DB = 'mongodb+srv://lefasomriverplate:do5AzTzrFrGvN8Mp@cluster0.q0nom.mongodb.net/items?retryWrites=true&w=majority&appName=Cluster0'
+- [x] MONGO_DB = 'mongodb+srv://lefasomriverplate:Cpjxz4pngzX5esTA@cluster0.q0nom.mongodb.net/items?retryWrites=true&w=majority&appName=Cluster0'
 #### tuve problemas conla connecion y para solucionarlo tuve que generar un nuevo password y se soluciona y es importante poner bien el nombre de la colleccion
 
 
