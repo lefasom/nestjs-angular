@@ -1,1 +1,0 @@
-const idea = "aprender angular"
