@@ -1,5 +1,10 @@
-@if (session) {
-<p>Bievenido! {{username}}</p>
-} @else {
-<p>¡Inicia sesión!</p>
-}
+<section>
+    @if (session) {
+    <p>Bievenido! {{username}}</p>
+    <button (click)="session = false">Log Out</button>
+    } @else {
+    <p>¡Inicia sesión!</p>
+    <button (click)="session = true">Log In</button>
+
+    }
+</section>

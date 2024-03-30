@@ -1,0 +1,11 @@
+section {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    height: 200px;
+}
+
+section p {
+    margin: auto;
+    text-align: center;
+}
