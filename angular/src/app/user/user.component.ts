@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  username = "Lefasom"
+  username = "Leo Sombra"
   session = false
 }
