@@ -1,14 +1,5 @@
-<body>
-  <h1>RED SOCIAL</h1>
-  {{favGame}}
-  <app-user />
-  @defer (on viewport) {
-  <app-game (addFavoriteEvent)="getFavGame($event)" title="Mis juegos" />
-  } @placeholder {
-  <p>.</p>
-  } @loading {
-  <p>cargando lista ...</p>
-  }
-
-</body>
-<router-outlet />
+<div>
+    <a [routerLink]="['/']">Home</a> |
+    <a [routerLink]="['/form']">Form</a>
+</div>
+<router-outlet></router-outlet>
