@@ -1,1 +1,18 @@
-<p>list works!</p>
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (user of users; track user._id) {
+        <tr>
+            <td>{{ user._id }}</td>
+            <td>{{ user.name }}</td>
+        </tr>
+        }
+
+    </tbody>
+</table>
