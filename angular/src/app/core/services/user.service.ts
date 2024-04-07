@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IUser } from '../models/user.model';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:3000/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${baseUrl}/user`);
+    return this.http.get<IUser[]>(`${baseUrl}`);
   }
   // get(id: any): Observable<User> {
   //   return this.http.get<User>(`${baseUrl}/${id}`);
@@ -27,9 +27,10 @@ export class UserService {
   //   return this.http.put(`${baseUrl}/${id}`, data);
   // }
 
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete(`${baseUrl}/${id}`);
-  // }
+  delete(id: string): Observable<any> {
+
+    return this.http.delete(`${baseUrl}/${id}`);
+  }
 
   // deleteAll(): Observable<any> {
   //   return this.http.delete(baseUrl);
