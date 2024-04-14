@@ -1,8 +1,8 @@
-import { Component, OnInit, effect, signal } from '@angular/core';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { IUser } from '../../core/models/user.model';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -12,11 +12,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './list.component.css'
 })
 export class ListComponent implements OnInit {
-
+  session: boolean = false
   userSubscription: Subscription;
   // users = signal<IUser[]>([])
   users: IUser[] = ([])
-
+  private _router = inject(Router)
   constructor(private _UserService: UserService) {
     this.userSubscription = new Subscription();
 
@@ -48,6 +48,9 @@ export class ListComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    if (!this.session) {
+      this._router.navigate(['login'])
+    }
     this.getUser()
   }
 
