@@ -15,13 +15,14 @@ export class UserService {
   getAll(): Observable<IUser[]> {
     return this.http.get<IUser[]>(`${baseUrl}`);
   }
-  // get(id: any): Observable<User> {
-  //   return this.http.get<User>(`${baseUrl}/${id}`);
-  // }
+  get(id: string): Observable<IUser> {
+    return this.http.get<IUser>(`${baseUrl}/${id}`);
+  }
 
-  // create(data: any): Observable<any> {
-  //   return this.http.post(baseUrl, data);
-  // }
+  createUser(data: any): Observable<any> {
+    console.log(data)
+    return this.http.post(baseUrl, data);
+  }
 
   // update(id: any, data: any): Observable<any> {
   //   return this.http.put(`${baseUrl}/${id}`, data);

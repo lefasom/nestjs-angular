@@ -1,36 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { IUser } from '../../core/models/user.model';
-import { Subscription } from 'rxjs';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+function noCaracteresEspeciales(control: AbstractControl): { [key: string]: any } | null {
+  const caracteresEspeciales = /[!@#$%^&*(),.?":{}|<>]/;
+  const tieneCaracterEspecial = caracteresEspeciales.test(control.value);
+  return tieneCaracterEspecial ? { caracteresEspeciales: true } : null;
+}
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
 export class FormComponent implements OnInit {
-  users: IUser[] = [];
-  userSubscription: Subscription;
 
-  constructor(private _UserService: UserService) {
-    this.userSubscription = new Subscription();
-  }
+  formulario!: FormGroup;
+  nameControl!: FormControl;
+  emailControl!: FormControl;
+  passwordControl!: FormControl;
+  private formBuilder = inject(FormBuilder)
+  private _userService = inject(UserService)
+
   ngOnInit(): void {
-    this.userSubscription = this._UserService.getAll().subscribe({
-      next: (data: IUser[]) => {
-        this.users = data;
-        console.log(data)
-      },
-      error: (error) => {
-        console.error('Error al obtener usuarios:', error);
-      }
+    this.nameControl = new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+      noCaracteresEspeciales // Validador personalizado
+    ]);
+    this.emailControl = new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')
+    ]);
+    this.passwordControl = new FormControl('', [
+      // Validators.required,
+      // Validators.pattern('[0-9]{10}'),
+      // Validators.min(1000000000),
+      // Validators.max(9999999999)
+    ]);
+    this.formulario = this.formBuilder.group({
+      name: this.nameControl,
+      email: this.emailControl,
+      password: this.passwordControl,
     });
   }
-  ngOnDestroy(): void {
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
-    }
+  enviarFormulario(): void {
+    // Obtener los valores del formulario
+    const datosFormulario = {
+      name: this.nameControl.value,
+      email: this.emailControl.value,
+      password: this.passwordControl.value
+    };
+
+    // Llamar al servicio para crear el usuario
+    this._userService.createUser(datosFormulario).subscribe(
+      (response) => {
+        // Manejar la respuesta si es necesario
+        console.log('Usuario creado exitosamente', response);
+      },
+      (error) => {
+        // Manejar cualquier error que pueda ocurrir
+        console.error('Error al crear usuario', error);
+      }
+    );
   }
 }

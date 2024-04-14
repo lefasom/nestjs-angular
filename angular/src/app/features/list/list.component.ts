@@ -2,11 +2,12 @@ import { Component, OnInit, effect, signal } from '@angular/core';
 import { IUser } from '../../core/models/user.model';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })

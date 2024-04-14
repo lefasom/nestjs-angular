@@ -8,5 +8,9 @@ export const routes: Routes = [
     {
         path: 'form',
         loadChildren: () => import('./features/form/form.routes').then(m => m.FORM_ROUTES),
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./features/detail/detail.routes').then(m => m.DETAIL_ROUTES),
     }
 ];
