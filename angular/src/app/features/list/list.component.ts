@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
   }
   ngOnInit(): void {
     if (!this.session) {
-      this._router.navigate(['login'])
+      // this._router.navigate(['login'])
     }
     this.getUser()
   }
