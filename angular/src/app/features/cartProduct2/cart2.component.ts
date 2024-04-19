@@ -11,16 +11,12 @@ import { IProduct } from '../../core/models/product.model';
 })
 export class Cart2Component {
 
-  products = signal<IProduct[]>([])
   cartStore = inject(CartStore)
 
-  ngOnInit(): void {
-    this.getProducts()
-  }
-
-
-  getProducts() {
-
-    this.products.set(this.cartStore.products());
+  deleteProduct(product: IProduct) {
+    const _id = product._id
+    if (typeof _id === 'string') {
+      this.cartStore.removeItemFromCart(_id)
+    }
   }
 }

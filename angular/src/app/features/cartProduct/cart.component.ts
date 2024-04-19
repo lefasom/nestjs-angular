@@ -1,45 +1,55 @@
-import { Component, OnInit, effect, inject, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CartStore } from '../../core/store/cart.store';
-import { IProduct } from '../../core/models/product.model';
+import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit{
 
-  newProduct =
-    {
-      "_id": "1",
-      "name": "name product 2",
-      "price": 200,
-      "description": "description product 2",
-    }
-  productos = signal<IProduct[]>([])
+  private formBuilder = inject(FormBuilder)
+  // private _router = inject(Router)
+  cartStore = inject(CartStore);
 
-  cartStore = inject(CartStore)
+  formulario!: FormGroup;
+  nameControl!: FormControl;
+  descriptionControl!: FormControl;
+  priceControl!: FormControl;
 
-  constructor(){
-    effect(()=>{
-      console.log(this.productos())
-    })
-  }
   ngOnInit(): void {
-    this.getProducts()
+    this.nameControl = new FormControl('');
+    this.descriptionControl = new FormControl('');
+    this.priceControl = new FormControl(0)
+    this.formulario = this.formBuilder.group({
+      name: this.nameControl,
+      description: this.descriptionControl,
+      price: this.priceControl
+    });
   }
+  
+  enviarFormulario(): void {
+    // Obtener los valores del formulario
+    const datosFormulario = {
+      _id: uuidv4(),
+      name: this.nameControl.value,
+      description: this.descriptionControl.value,
+      price: this.priceControl.value
+    };
 
+    this.cartStore.addToCart(datosFormulario);
 
-  getProducts() {
-
-    this.productos.set(this.cartStore.products());
-  }
-
-  onAddToProduct() {
-    this.cartStore.addToCart(this.newProduct)
-    this.getProducts()
+    this.nameControl = new FormControl('');
+    this.descriptionControl = new FormControl('');
+    this.priceControl = new FormControl(0)
+    
+    // this._router.navigate(['cart2'])
   }
 
 }

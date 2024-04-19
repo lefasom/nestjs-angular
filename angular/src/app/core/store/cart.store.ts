@@ -22,7 +22,7 @@ export const CartStore = signalStore(
     withMethods(({products, ...store})=>({
 
         addToCart(product:IProduct){
-            console.log(product)
+            
             const updatedProduct = [...products(),product]
             patchState(store,{products:updatedProduct})
         },

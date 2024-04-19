@@ -5,6 +5,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Precio</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -14,6 +15,9 @@
             <td>{{ product._id }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
+            <td>
+                <button (click)="deleteProduct(product)">Eliminar</button>
+            </td>
         </tr>
         }
 
