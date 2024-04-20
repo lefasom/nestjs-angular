@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
-import { HijoComponent } from '../../shared/hijo/hijo.component';
-import { Hijo2Component } from '../../shared/hijo2/hijo2.component';
+import { HijoComponent } from '../../shared/components/hijo/hijo.component';
+import { Hijo2Component } from '../../shared/components/hijo2/hijo2.component';
 
 @Component({
   selector: 'app-padre',
@@ -14,7 +14,7 @@ export class PadreComponent {
   messageRecive(sms: string) {
     const messageReciveEventElement = document.getElementById("messageReciveEvent");
     if (messageReciveEventElement) {
-      messageReciveEventElement.innerHTML += `<br>${sms}`;
+      messageReciveEventElement.innerHTML += `-<b>user</b>: ${sms}.<br>`;
     }
   }
 

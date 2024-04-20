@@ -34,5 +34,9 @@ export const routes: Routes = [
     {
         path: 'padre',
         loadChildren: () => import('./features/padre/padre.routes').then(m => m.PADRE_ROUTES),
+    },  
+    {
+        path: 'pipe',
+        loadChildren: () => import('./features/uso-pipe/pipe.routes').then(m => m.PIPE_ROUTES),
     },
 ];
