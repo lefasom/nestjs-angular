@@ -10,7 +10,7 @@ import { UserStore } from '../../core/store/user.store';
 })
 export class CenterStateComponent {
 
-  private _userStore = inject(UserStore)
+   _userStore = inject(UserStore)
 
   constructor() {
     console.log(this._userStore.users())
