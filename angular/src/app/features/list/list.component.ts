@@ -3,6 +3,7 @@ import { IUser } from '../../core/models/user.model';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { Router, RouterLink } from '@angular/router';
+import { UserStore } from '../../core/store/user.store';
 
 @Component({
   selector: 'app-list',
@@ -17,6 +18,8 @@ export class ListComponent implements OnInit {
   // users = signal<IUser[]>([])
   users: IUser[] = ([])
   private _router = inject(Router)
+  private _userStore = inject(UserStore)
+
   constructor(private _UserService: UserService) {
     this.userSubscription = new Subscription();
 
@@ -28,6 +31,7 @@ export class ListComponent implements OnInit {
       next: (data: IUser[]) => {
         // this.users.set(data);
         this.users = data;
+        this._userStore.getToUsers(data)
       },
       error: (error) => {
         console.error('Error al obtener usuarios:', error);

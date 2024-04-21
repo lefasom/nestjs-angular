@@ -8,6 +8,12 @@ export const routes: Routes = [
 
     },
     {
+        path: 'center-state',
+        loadChildren: () => import('./features/center-state/center-state.routes').then(m => m.CENTER_STATE_ROUTES),
+        pathMatch: 'full'
+
+    },
+    {
         path: 'form',
         loadChildren: () => import('./features/form/form.routes').then(m => m.FORM_ROUTES),
     },

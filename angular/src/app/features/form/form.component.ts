@@ -3,6 +3,7 @@ import { UserService } from '../../core/services/user.service';
 import { IUser } from '../../core/models/user.model';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserStore } from '../../core/store/user.store';
 
 function noCaracteresEspeciales(control: AbstractControl): { [key: string]: any } | null {
   const caracteresEspeciales = /[!@#$%^&*(),.?":{}|<>]/;
@@ -23,8 +24,9 @@ export class FormComponent implements OnInit {
   nameControl!: FormControl;
   emailControl!: FormControl;
   passwordControl!: FormControl;
-  private formBuilder = inject(FormBuilder)
+  private _formBuilder = inject(FormBuilder)
   private _userService = inject(UserService)
+  private _userStore = inject(UserStore);
 
   ngOnInit(): void {
     this.nameControl = new FormControl('', [
@@ -44,7 +46,7 @@ export class FormComponent implements OnInit {
       // Validators.min(1000000000),
       // Validators.max(9999999999)
     ]);
-    this.formulario = this.formBuilder.group({
+    this.formulario = this._formBuilder.group({
       name: this.nameControl,
       email: this.emailControl,
       password: this.passwordControl,
@@ -63,6 +65,9 @@ export class FormComponent implements OnInit {
       (response) => {
         // Manejar la respuesta si es necesario
         console.log('Usuario creado exitosamente', response);
+        const { _id, name, email, password } = response
+        const newUser = { _id, name, email, password }
+        this._userStore.addToUser(newUser)
       },
       (error) => {
         // Manejar cualquier error que pueda ocurrir
